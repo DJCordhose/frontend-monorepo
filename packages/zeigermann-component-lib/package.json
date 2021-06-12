@@ -1,0 +1,64 @@
+{
+  "name": "zeigermann-component-lib",
+  "version": "0.1.17",
+  "license": "MIT",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "source": "src/index.ts",
+  "files": [
+    "/dist",
+    "/src",
+    "LICENSE.md"
+  ],
+  "prepublish": "tsc",
+  "scripts": {
+    "build": "rollup -c",
+    "build:watch": "rollup -c --watch",
+    "build:ts": "tsc --build",
+    "build:ts:watch": "tsc --build --watch",
+    "prepublish": "yarn build",
+    "clean": "rm -rf dist",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "storybook": "start-storybook -s ./public -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "gitHead": "7c665356e45d81678fce7f080d46aea688f52d7a",
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/react": "^6.2.9",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.7",
+    "@types/jest": "^26.0.23",
+    "@types/react": "^17.0.6",
+    "babel-loader": "^8.2.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.0.3",
+    "postcss": "^8.3.0",
+    "rollup": "^2.50.5",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-postcss-modules": "^2.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "storybook-css-modules-preset": "^1.1.1",
+    "ts-jest": "^27.0.2",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "dependencies": {
+    "@testing-library/user-event": "^13.1.9"
+  }
+}

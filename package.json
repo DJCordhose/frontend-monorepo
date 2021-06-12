@@ -1,0 +1,19 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "lerna:bootstrap": "lerna bootstrap",
+    "lerna:link": "lerna link --force-local",
+    "lerna:build": "lerna run build",
+    "lerna:clean": "lerna clean",
+    "lerna:publish": "lerna publish",
+    "lerna": "yarn lerna:bootstrap && yarn lerna:link && yarn lerna:build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose build",
+    "docker": "yarn lerna:build && yarn docker:down && yarn docker:build && yarn docker:up"
+  }
+}

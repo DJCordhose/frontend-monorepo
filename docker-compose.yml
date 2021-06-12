@@ -1,0 +1,17 @@
+services:
+  main:
+    build: packages/main
+    ports:
+      - "8080:80"
+    links:
+      - counter
+  counter:
+      build: packages/counter
+      ports:
+        - "8081:80"
+      links:
+        - server
+  server:
+      build: packages/server
+      ports:
+        - "7000:7000"

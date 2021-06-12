@@ -1,0 +1,2 @@
+# Get users
+GET http://localhost:7000/users

@@ -11,7 +11,13 @@ services:
         - "8081:80"
       links:
         - server
+  mobx:
+    build: packages/cra-ts-mobx
+    ports:
+      - "8082:80"
+    links:
+      - server
   server:
-      build: packages/server
-      ports:
-        - "7000:7000"
+    build: packages/server
+    ports:
+      - "7000:7000"

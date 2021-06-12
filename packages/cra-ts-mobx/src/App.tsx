@@ -4,11 +4,7 @@ import "./App.css";
 import { useStore } from "./Store";
 import { observer } from "mobx-react";
 
-import { LoadingIndicator, AriaButton, sayHi } from "zeigermann-component-lib";
-
-function callback() {
-  console.log(sayHi("Olli"))
-}
+import { LoadingIndicator, AriaButton } from "zeigermann-component-lib";
 
 const App = observer(() => {
   const store = useStore();
@@ -31,7 +27,11 @@ const App = observer(() => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          <AriaButton testid='oha' label='Click mich' text='Click mich' onClick={() => callback()}></AriaButton>
+          <AriaButton testid='oha' label='Load' text='Load' onClick={() => store.fetchFromServer('/api/users2')}></AriaButton>
+        </p>
+        <p>
+          <AriaButton testid='oha2' label='Login' text='Login' onClick={() => store.login()}></AriaButton>
+          <AriaButton testid='oha2' label='Logout' text='Logout' onClick={() => store.logout()}></AriaButton>
         </p>
         <a
           className="App-link"

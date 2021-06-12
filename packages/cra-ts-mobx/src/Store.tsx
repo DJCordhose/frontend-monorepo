@@ -25,10 +25,10 @@ class BackendConfigStore {
   }
 
   // https://mobx.js.org/actions.html#asynchronous-actions
-  async fetchFromServer() {
+  async fetchFromServer(url?: string) {
     this.state = "pending";
     try {
-      const data = await (await fetch(this.url)).json();
+      const data = await (await fetch(url || this.url)).json();
       runInAction(() => {
         this.count = Number(data.count);
         this.state = "done";
@@ -38,6 +38,14 @@ class BackendConfigStore {
         this.state = "error";
       });
     }
+  }
+
+  async login() {
+    await fetch('/api/login')
+  }
+
+  async logout() {
+    await fetch('/api/logout')
   }
 
   updateHost(host: string) {

@@ -4,7 +4,11 @@ import "./App.css";
 import { useStore } from "./Store";
 import { observer } from "mobx-react";
 
-import { LoadingIndicator } from "zeigermann-component-lib";
+import { LoadingIndicator, AriaButton, sayHi } from "zeigermann-component-lib";
+
+function callback() {
+  console.log(sayHi("Olli"))
+}
 
 const App = observer(() => {
   const store = useStore();
@@ -24,7 +28,7 @@ const App = observer(() => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+          <AriaButton testid='oha' label='Click mich' text='Click mich' onClick={() => callback()}></AriaButton>
         </p>
         <a
           className="App-link"

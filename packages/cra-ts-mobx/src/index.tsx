@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { StoreProvider } from "./Store";
+
+import './index.css';
+import "zeigermann-component-lib/dist/index.esm.css";
 
 ReactDOM.render(
   <React.StrictMode>

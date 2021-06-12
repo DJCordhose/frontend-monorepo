@@ -3,20 +3,14 @@ services:
     build: packages/main
     ports:
       - "8080:80"
-    links:
-      - counter
   counter:
-      build: packages/counter
-      ports:
-        - "8081:80"
-      links:
-        - server
+    build: packages/counter
+    ports:
+      - "8081:80"
   mobx:
     build: packages/cra-ts-mobx
     ports:
       - "8082:80"
-    links:
-      - server
   server:
     build: packages/server
     ports:

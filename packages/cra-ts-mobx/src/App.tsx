@@ -20,8 +20,11 @@ const App = observer(() => {
     (async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       store.updateHost("localhost");
-      store.updatePort(80);
+      store.updatePort(7000);
     })();
+  }, [store]);
+  useEffect(() => {
+    store.fetchFromServer()
   }, [store]);
   const app = (
     <div className="App">
@@ -41,6 +44,7 @@ const App = observer(() => {
         <p>
           {store.host}, {store.port}
         </p>
+        <p>Count vom Server: {store.count}</p>
       </header>
     </div>
   );

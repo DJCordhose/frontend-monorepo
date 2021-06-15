@@ -1,6 +1,27 @@
 import { makeAutoObservable, autorun, when, runInAction } from "mobx";
 import React, { useContext } from "react";
 
+
+const loginJwt = async () => {
+  const response = await fetch("/api/login", {
+    method: "post",
+    body: JSON.stringify({
+      login: "olli",
+      password: "qweqwe123",
+    }),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    }
+    });
+  const json = await response.json();
+  if (json.token) {
+    localStorage.setItem("token", json.token);
+  }
+};
+
+
+
 // https://mobx.js.org/defining-data-stores.html
 class BackendConfigStore {
   host?: string;
@@ -28,7 +49,15 @@ class BackendConfigStore {
   async fetchFromServer(url?: string) {
     this.state = "pending";
     try {
-      const data = await (await fetch(url || this.url)).json();
+      const token = localStorage.getItem("token") || "";
+      const data = await (await fetch(url || this.url, {
+        method: 'get',
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: token
+        }
+      })).json();
       runInAction(() => {
         this.count = Number(data.count);
         this.state = "done";
@@ -41,11 +70,14 @@ class BackendConfigStore {
   }
 
   async login() {
-    await fetch('/api/login')
+    await loginJwt()
+    // await fetch('/api/login')
   }
 
   async logout() {
     await fetch('/api/logout')
+    localStorage.removeItem('token')
+
   }
 
   updateHost(host: string) {

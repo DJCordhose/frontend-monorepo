@@ -1,2 +1,14 @@
 # Get users
-GET http://localhost:7000/users
+GET http://localhost:7000/api/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im9sbGkiLCJpYXQiOjE2MjM3NDY5NTAsImV4cCI6MTYyMzc0Nzg1MH0.0dSkobDB-jep_W7-CyMywSDZenTPXGww0OOp1hZ6NPQ
+
+###
+
+# Login
+POST http://localhost:7000/api/login
+content-type: application/json
+
+{
+    "login": "olli",
+    "password": "qweqwe123"
+}

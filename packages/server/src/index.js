@@ -16,11 +16,13 @@ app.use(bodyParser.json())
 
 
 app.use((req, res, next) => {
+  if (jwtAuthEnabled) {
     const token = req.headers.authorization;
     if (token) {
       const payload = jwt.verify(token, jwtSecret);
       req.user = payload;
     }
+  }
     next();
   });
 
@@ -57,7 +59,7 @@ app.post('/api/login', (req, res) => {
           return res.status(400).json({ error: "login.password must be defined" });
         }
     
-        const token = jwt.sign({login: login.login}, jwtSecret, {
+        const token = jwt.sign({login: login.login, rules: ['yo']}, jwtSecret, {
             expiresIn: '15 min'
         });
 

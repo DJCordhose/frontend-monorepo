@@ -87,4 +87,9 @@ app.get('/api/logout', (req, res) => {
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
+  if (jwtAuthEnabled) {
+    console.log(`JWT auth enabled`)
+  } else {
+    console.log(`cookie auth enabled`)
+  }
 })

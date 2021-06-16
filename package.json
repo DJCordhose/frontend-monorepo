@@ -11,7 +11,7 @@
     "lerna:clean": "lerna clean",
     "lerna:publish": "lerna publish",
     "lerna": "yarn lerna:bootstrap && yarn lerna:link && yarn lerna:build",
-    "docker:up": "docker-compose up -d",
+    "docker:up": "docker-compose --env-file .env.dev up -d",
     "docker:down": "docker-compose down",
     "docker:build": "docker-compose build",
     "docker": "yarn lerna:build && yarn docker:down && yarn docker:build && yarn docker:up"

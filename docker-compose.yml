@@ -15,3 +15,6 @@ services:
     build: packages/server
     ports:
       - "7000:7000"
+    environment:
+      - USE_JWT_AUTH=${USE_JWT_AUTH} 
+      - TOKEN_SECRET=${TOKEN_SECRET}

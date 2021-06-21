@@ -1,7 +1,6 @@
 # Showcase: React for business applications
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
-[![Build Status](https://travis-ci.com/DJCordhose/react-showcase.svg?branch=main)](https://travis-ci.com/DJCordhose/react-showcase)
 
 <a href='https://djcordhose.github.io/react-showcase/' target='_blank'>
 <img src='./react-showcase.png'>

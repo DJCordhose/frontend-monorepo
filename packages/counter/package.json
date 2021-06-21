@@ -28,7 +28,7 @@
     "tailwindcss": "^2.0.2",
     "typescript": "~4.3.4",
     "web-vitals": "^2.0.1",
-    "zeigermann-component-lib": "@latest"
+    "zeigermann-component-lib": "latest"
   },
   "scripts": {
     "start": "yarn tailwind:prepare && react-scripts start",
@@ -36,6 +36,7 @@
     "build:profile": "yarn build -- --profile",
     "test": "yarn tailwind:prepare && react-scripts test",
     "test:coverage": "yarn test -- --coverage --watchAll=false",
+    "test:ci": "yarn test -- --coverage --watchAll=false",
     "tailwind:prepare": "postcss src/assets/tailwind.css -o src/assets/main.css",
     "eject": "react-scripts eject",
     "serve": "serve -s build",

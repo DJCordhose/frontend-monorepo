@@ -2,12 +2,15 @@
   "name": "root",
   "private": true,
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "testcafe-blink-diff": "^0.4.8",
+    "testcafe": "^1.9.4"
   },
   "scripts": {
     "lerna:bootstrap": "lerna bootstrap",
     "lerna:link": "lerna link --force-local",
     "lerna:build": "lerna run build",
+    "lerna:test": "lerna run test:ci",
     "lerna:clean": "lerna clean",
     "lerna:publish": "lerna publish",
     "lerna": "yarn lerna:bootstrap && yarn lerna:link && yarn lerna:build",
@@ -15,6 +18,16 @@
     "docker:prod:up": "docker-compose --env-file .env.prod up -d",
     "docker:down": "docker-compose down",
     "docker:build": "docker-compose build",
-    "docker": "yarn lerna:build && yarn docker:down && yarn docker:build && yarn docker:up"
+    "ci": "yarn && yarn lerna:bootstrap && yarn ci:setup && yarn e2e:ci && yarn docker:down",
+    "ci:setup": "yarn lerna:build && yarn lerna:test && yarn docker:down && yarn docker:build && yarn docker:up",
+    "e2e": "testcafe chrome --assertion-timeout 10000 e2e-test/e2e/",
+    "e2e:ci": "testcafe chrome:headless -c 5 --assertion-timeout 20000 e2e-test/e2e/",
+    "e2e:watch": "testcafe chrome --assertion-timeout 10000 e2e-test/e2e/ -L",
+    "e2e:concurrent": "testcafe chrome -c 5 --assertion-timeout 20000 e2e-test/e2e/",
+    "e2e:debug": "testcafe chrome e2e-test/e2e/ -s path=test/e2e/screenshots,takeOnFails=true --debug-on-fail",
+    "e2e:crawl": "testcafe chrome:headless e2e-test/regression/App.crawl.ts",
+    "e2e:visual:snapshot": "testcafe chrome:headless e2e-test/regression/App.visual.test.ts -s e2e-test/regression/screenshots --take-snapshot goldmaster",
+    "e2e:visual:test": "testcafe chrome:headless e2e-test/regression/App.visual.test.ts -s e2e-test/regression/screenshots --take-snapshot test",
+    "e2e:visual:compare": "testcafe-blink-diff e2e-test/regression/screenshots regression-report --compare goldmaster:test --threshold 0.001"
   }
 }

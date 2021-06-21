@@ -13467,7 +13467,7 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zeigermann-component-lib@@latest:
+zeigermann-component-lib@latest:
   version "0.1.18"
   resolved "https://registry.yarnpkg.com/zeigermann-component-lib/-/zeigermann-component-lib-0.1.18.tgz#52892c6af95271d5969990e07081891769fb2959"
   integrity sha512-fjWb9IzYg1vHZhGShZIFg/LUAHZNgx+OrCXXznqQWle9gduJkSzoKS+PmqGNEbZryFBI9nenETJoyWzQhJXdsg==

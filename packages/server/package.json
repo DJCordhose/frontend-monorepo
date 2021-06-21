@@ -19,6 +19,7 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "start:withJwtAuth": "cross-env USE_JWT_AUTH=true TOKEN_SECRET=09f26e402586e2faa8da4c98a35f1b20d6b033c60 nodemon src/index.js",
-    "start:debug": "nodemon --inspect src/index.js"
+    "start:debug": "nodemon --inspect src/index.js",
+    "test:ci": ""
   }
 }

@@ -1,2 +1,4 @@
 node_modules
 lerna-debug.log
+regression-report
+e2e-test/regression/screenshots

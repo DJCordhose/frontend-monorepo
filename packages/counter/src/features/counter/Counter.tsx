@@ -44,7 +44,7 @@ export default function Counter() {
         />
         <span
           data-testid="count:value"
-          className="px-5 py-2 border-gray-900 border-2  m-2"
+          className="px-5 py-2 border-gray-900 border-2 m-2"
           aria-label="Value"
           role="presentation"
         >

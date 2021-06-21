@@ -11,7 +11,7 @@ const Hello = lazy(() => import("./features/hello/Hello"));
 
 function App() {
   return (
-    <div id="cnt-app" className="p-6 max-w-sm mx-auto space-x-5">
+    <div id="cnt-app" className="p-6 max-w-sm mx-auto">
       <Router basename='/counter'>
         <Nav />
         <SwitchLanguage />

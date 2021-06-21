@@ -48,7 +48,7 @@ export function AriaButton({
       bg-gray-100 border-2 border-gray-900
       hover:border-gray-500 hover:bg-gray-200 
       active:border-gray-200 active:bg-gray-400 
-      px-2 py-2 ${flat ? "w-100" : "w-20"} mx-2 my-2 ${
+      px-2 py-2 ${flat ? "w-100" : "w-40"} mx-2 my-2 ${
         inProgress ? "animate-spin" : ""
       }`}
       aria-label={label}

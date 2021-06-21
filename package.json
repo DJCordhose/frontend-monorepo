@@ -25,9 +25,9 @@
     "e2e:watch": "testcafe chrome --assertion-timeout 10000 e2e-test/e2e/ -L",
     "e2e:concurrent": "testcafe chrome -c 5 --assertion-timeout 20000 e2e-test/e2e/",
     "e2e:debug": "testcafe chrome e2e-test/e2e/ -s path=test/e2e/screenshots,takeOnFails=true --debug-on-fail",
-    "e2e:crawl": "testcafe chrome:headless e2e-test/regression/App.crawl.ts",
     "e2e:visual:snapshot": "testcafe chrome:headless e2e-test/regression/App.visual.test.ts -s e2e-test/regression/screenshots --take-snapshot goldmaster",
     "e2e:visual:test": "testcafe chrome:headless e2e-test/regression/App.visual.test.ts -s e2e-test/regression/screenshots --take-snapshot test",
-    "e2e:visual:compare": "testcafe-blink-diff e2e-test/regression/screenshots regression-report --compare goldmaster:test --threshold 0.001"
+    "e2e:visual:compare": "testcafe-blink-diff e2e-test/regression/screenshots regression-report --compare goldmaster:test --threshold 0.001",
+    "e2e:crawl": "testcafe chrome:headless -s e2e-test/regression/screenshots e2e-test/regression/App.crawl.test.ts"
   }
 }

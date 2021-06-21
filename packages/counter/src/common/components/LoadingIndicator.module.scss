@@ -1,0 +1,6 @@
+@import "../../base.scss";
+
+.loading {
+    @include defaults;
+    background-color: azure;
+}

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot: renders correctly 1`] = `
+<div
+  className="p-6 max-w-sm mx-auto space-x-5"
+  id="hello-app"
+>
+  <div
+    className="sc-bdnxRM epder"
+  >
+    hello
+  </div>
+</div>
+`;

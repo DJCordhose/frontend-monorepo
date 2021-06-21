@@ -1,68 +1,76 @@
-import React, { useState } from 'react';
-
+import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
+
 import {
   decrement,
   increment,
-  incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
+  // loadBackendConfig,
+  loadFromServer,
+  initFromBackend,
   selectCount,
-} from './counterSlice';
-import styles from './Counter.module.css';
+  selectInProgress,
+  selectIsConfigured
+} from "./counterSlice";
 
-export function Counter() {
+import { useTranslation } from "react-i18next";
+import { AriaButton, FlexContainer } from "zeigermann-component-lib";
+import { LoadingIndicator } from "../../common/components/LoadingIndicator";
+
+import { IncrementByAmount } from "./containers/IncrementByAmount";
+import { RevenueContainer } from "./components/RevenueContainer";
+
+export default function Counter() {
   const count = useAppSelector(selectCount);
+  const inProgress = useAppSelector(selectInProgress);
+  const isConfigured = useAppSelector(selectIsConfigured);
+
   const dispatch = useAppDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
+  const { t } = useTranslation();
 
-  const incrementValue = Number(incrementAmount) || 0;
+  useEffect(() => {
+    // dispatch(loadBackendConfig())
+    dispatch(initFromBackend())
+  }, [dispatch]);
 
-  return (
+
+  const counterEl = (
     <div>
-      <div className={styles.row}>
-        <button
-          className={styles.button}
-          aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
-        >
-          -
-        </button>
-        <span className={styles.value}>{count}</span>
-        <button
-          className={styles.button}
-          aria-label="Increment value"
+      <FlexContainer>
+        <AriaButton
+          testid="count:increment"
+          label="Increment value"
+          text="+"
           onClick={() => dispatch(increment())}
-        >
-          +
-        </button>
-      </div>
-      <div className={styles.row}>
-        <input
-          className={styles.textbox}
-          aria-label="Set increment amount"
-          value={incrementAmount}
-          onChange={(e) => setIncrementAmount(e.target.value)}
         />
-        <button
-          className={styles.button}
-          onClick={() => dispatch(incrementByAmount(incrementValue))}
+        <span
+          data-testid="count:value"
+          className="px-5 py-2 border-gray-900 border-2  m-2"
+          aria-label="Value"
+          role="presentation"
         >
-          Add Amount
-        </button>
-        <button
-          className={styles.asyncButton}
-          onClick={() => dispatch(incrementAsync(incrementValue))}
-        >
-          Add Async
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => dispatch(incrementIfOdd(incrementValue))}
-        >
-          Add If Odd
-        </button>
-      </div>
+          {count}
+        </span>
+        <AriaButton
+          testid="count:decrement"
+          label="Decrement value"
+          text="-"
+          onClick={() => dispatch(decrement())}
+        />
+      </FlexContainer>
+      <IncrementByAmount />
+      <FlexContainer center={true}>
+        <AriaButton
+          testid="count:load"
+          label={t("load")}
+          text={t("load")}
+          flat={true}
+          onClick={() => dispatch(loadFromServer('users2'))}
+          inProgress={inProgress['LOAD']}
+        />
+      </FlexContainer>
+      <RevenueContainer count={count} />
     </div>
   );
+
+  return isConfigured ? counterEl : <LoadingIndicator title="Loading configuration..." />;
 }

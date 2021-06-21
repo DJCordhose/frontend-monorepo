@@ -2,29 +2,45 @@
   "name": "counter",
   "version": "0.1.18",
   "private": true,
-  "homepage": ".",
   "proxy": "http://localhost:7000",
+  "homepage": ".",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.5.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-redux": "^7.1.7",
+    "@reduxjs/toolkit": "^1.6.0",
+    "@testing-library/dom": "^7.28.1",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.5.0",
+    "axios": "^0.21.1",
+    "fetch-mock": "^9.11.0",
+    "i18next": "^19.8.4",
+    "i18next-xhr-backend": "^3.2.2",
+    "node-fetch": "^2.6.1",
+    "postcss": "8.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-i18next": "^11.7.4",
     "react-redux": "^7.2.0",
-    "react-scripts": "4.0.3",
-    "typescript": "~4.1.5"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "~4.0.3",
+    "react-test-renderer": "^17.0.1",
+    "redux-mock-store": "^1.5.4",
+    "styled-components": "^5.3.0",
+    "tailwindcss": "^2.0.2",
+    "typescript": "~4.3.4",
+    "web-vitals": "^2.0.1",
+    "zeigermann-component-lib": "@latest"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "yarn tailwind:prepare && react-scripts start",
+    "build": "cross-env NODE_ENV=production yarn tailwind:prepare && react-scripts build",
+    "build:profile": "yarn build -- --profile",
+    "test": "yarn tailwind:prepare && react-scripts test",
+    "test:coverage": "yarn test -- --coverage --watchAll=false",
+    "tailwind:prepare": "postcss src/assets/tailwind.css -o src/assets/main.css",
+    "eject": "react-scripts eject",
+    "serve": "serve -s build",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +55,36 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router-dom": "^5.1.7",
+    "@types/react-test-renderer": "^17.0.1",
+    "@types/redux-mock-store": "^1.0.2",
+    "@types/styled-components": "^5.1.9",
+    "autoprefixer": "10.1.0",
+    "cross-env": "^7.0.3",
+    "gh-pages": "^3.1.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
+    "node-sass": "4",
+    "postcss-cli": "8.3.1",
+    "prettier": "^2.3.0",
+    "serve": "^11.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
     ]
   }
 }

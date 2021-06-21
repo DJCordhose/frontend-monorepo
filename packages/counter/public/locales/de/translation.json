@@ -1,0 +1,7 @@
+{
+    "add": "Benutzer dazu ({{mode}})",
+    "load": "Daten vom Server laden",
+    "users": "Heute, {{date, date}}, haben wir {{count, number}} Benutzer, das bringt {{revenue, euro}} Umsatz.",
+    "de": "Deutsch",
+    "en": "Englisch"
+}

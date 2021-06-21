@@ -1,0 +1,7 @@
+{
+    "add": "Add Users ({{mode}})",
+    "load": "Load data from server",
+    "users": "Today, {{date, date}}, we have {{count, number}} users, that makes {{revenue, euro}} in revenue.",
+    "de": "German",
+    "en": "English"
+}

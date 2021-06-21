@@ -1,0 +1,6 @@
+$font-family: cursive;
+
+@mixin defaults {
+  font-family: $font-family;
+  color: chocolate;
+}

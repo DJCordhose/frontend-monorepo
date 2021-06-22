@@ -3,7 +3,7 @@
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 <a href='https://djcordhose.github.io/react-showcase/' target='_blank'>
-<img src='./react-showcase.png'>
+<img src='./img/react-showcase.png'>
 </a>
 
 __Given the typical technical and structural requirements of a business application what are the recommended technology choices and architectural nuggets?__
@@ -27,7 +27,7 @@ Architecture is the sum of the important Processes, Structures, Patterns, Archit
 * _restricting what can be built reasonably_, 
 * _having the potential to make the endeavor fail_. 
 
-![Architecture](./architecture.png)
+![Architecture](./img/architecture.png)
 
 Idea of Architectural Nuggets taken from: https://pkruchten.files.wordpress.com/2020/06/kruchten-2020-northrop-award.pdf
 
@@ -76,19 +76,6 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
   
 
 ### Macro-Structure of modules and dependencies
-
-Don't underestimate, can be crucial for win or lose. This actually is a failed project
-- uses CSS lib tailwind
-- factored out lib of common components also using tailwind into project of its own
-- now independent lib has dependency on tailwind
-  - how to build this properly?
-    - publish bundled version of CSS -> duplicates
-    - leave it up to using project to include CSS -> how to properly purge unwanted styles (tailwind unpurged can be many 100k)
-      - this is how we handle it here, but only is ok, because this is toy project
-  - alternative is to get rid of CSS lib for component lib
-     - how to do this? 
-     - do we break something?
-     - would we even know? how to test?_
 #### Modular Monolith
 - Development in a monorepo
   - https://lerna.js.org/
@@ -131,6 +118,46 @@ Don't underestimate, can be crucial for win or lose. This actually is a failed p
 
 [Dedicated document](./testing.md)
 
+
+### Styling
+
+* styling is a global concern 
+* often underestimated
+* a real architectural decision
+* don't mix different approaches
+
+#### Options for writing styles
+* using globally shared CSS
+  * maybe using CSS framework
+    * https://tailwindcss.com
+      * https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+      * https://tailwindcss.com/docs/optimizing-for-production
+      * https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/counter/tailwind.config.js
+    * don't mix with component library
+  * https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/counter/src/index.tsx#L3
+* CSS modules
+  * mainstream
+  * https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
+  * https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/zeigermann-component-lib/src/LoadingIndicator.tsx
+* SASS
+  * Generally, we recommend that you don’t reuse the same CSS classes across different components. For example, instead of using a .Button CSS class in `<AcceptButton>` and `<RejectButton>` components, we recommend creating a `<Button>` component with its own .Button styles, that both `<AcceptButton>` and `<RejectButton>` can render (but not inherit).
+  * can be used for global CSS
+  * https://create-react-app.dev/docs/adding-a-sass-stylesheet/
+  * https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/counter/src/common/components/LoadingIndicator.tsx
+* Styled Components
+  * https://styled-components.com/
+  * https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/counter/src/features/hello/Hello.tsx  
+
+#### Tooling
+* https://postcss.org/
+  * checks CSS and adds browser specific prefixes
+  * can also bundle, minimize, source maps
+* styling with TS
+  * generic type declarations needed for CSS: https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/zeigermann-component-lib/src/react-app-env.d.ts#L58
+  * specific types can be generated
+    * https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/zeigermann-component-lib/src/AriaButton.module.css.d.ts
+    * https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/zeigermann-component-lib/rollup.config.js#L10
+
 ### Typing
 
 - https://2020.stateofjs.com/en-US/technologies/javascript-flavors/
@@ -150,6 +177,22 @@ Don't underestimate, can be crucial for win or lose. This actually is a failed p
 
 ## Less important technical recommendations
 
+### Component Style (classes vs functional components w/ hooks)
+* classes and functional components are pretty similar
+  * State: re-render
+  * Properties
+  * Component returns UI
+  * Lifecycle: render and commit phase
+  * Declarative
+  * Classes and functions can be mixed in one app
+  * Classes are not deprecated
+* but  
+  * new/future React features may only be available for functions
+  * error boundaries only work for classes: https://reactjs.org/docs/error-boundaries.html
+  * life-cycle methods in classes hurt cohesion of code and are error prone
+  * useEffect can replace all of them in functional components (but also have a weird api)
+  * setState and this-binding of callbacks in classes can be confusing
+  * hooks might allow to better extract reusable code (rather than subclassing)
 ### Data Fetching and Synchronization
 - low level
   - just fetch (built-in): https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
@@ -165,11 +208,6 @@ Don't underestimate, can be crucial for win or lose. This actually is a failed p
 ### Dependency Management
 
 - https://classic.yarnpkg.com/en/
-
-### Linting
-
-- https://eslint.org/
-- TypeScript can also be used as a linter
 
 ### Routing
 
@@ -199,11 +237,16 @@ Don't underestimate, can be crucial for win or lose. This actually is a failed p
 - https://material-ui.com/
 - https://github.com/microsoft/fluentui
 
-### CSS Framework
 
-- https://tailwindcss.com
-  - https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
-  - https://tailwindcss.com/docs/optimizing-for-production
+### Performance
+* web vitals
+  * https://create-react-app.dev/docs/measuring-performance/
+  * https://web.dev/vitals/
+  * https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/counter/src/index.tsx#L33
+* Profiling Tools Browser
+  * Standard Dev Tools
+  * React Profiler: https://reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html
+  * Lighthouse (more high level): https://developers.google.com/web/tools/lighthouse
 
 ## Create React App
 
@@ -213,44 +256,3 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - https://github.com/reduxjs/cra-template-redux-typescript
   - yarn create react-app my-app --template redux-typescript
 - yarn upgrade typescript --latest
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

@@ -219,8 +219,12 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
     - only one direction
     - patterns for receiving like Web Sockets
     - https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
+  - Abstraction over all methods: 
+    - https://socket.io/
+      - Java Implementation exists, but might be complex: https://github.com/socketio/socket.io-client-java
+      - More server side implementations: https://socket.io/docs/v4/#What-Socket-IO-is
+    - https://github.com/sockjs/sockjs-client
 
-  
 ### Dependency Management
 
 - https://classic.yarnpkg.com/en/

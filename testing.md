@@ -16,6 +16,12 @@ https://2020.stateofjs.com/en-US/technologies/testing/
   * unit
   * integration
 
+## Why testing?
+* make sure 
+  * your program does what it should
+  * people can actually use it
+* gain insights
+
 
 ## Layers of tests on web front ends
 

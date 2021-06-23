@@ -202,8 +202,24 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
   - for redux toolkit: https://redux-toolkit.js.org/rtk-query/overview
   - Alternatives: https://react-query.tanstack.com/comparison
 - Polling
-  - https://react-query.tanstack.com/examples/auto-refetching
-  - https://redux-toolkit.js.org/rtk-query/usage/polling  
+  - Long Polling
+    - make call to server in useEffect
+    - once call comes back, do it again
+    - can be done in Redux Action Creator
+  - Short Polling
+    - simple: schedule call to server every x ms using setInterval
+    - use lib like:
+      - https://react-query.tanstack.com/examples/auto-refetching
+      - https://redux-toolkit.js.org/rtk-query/usage/polling
+  - Web Sockets
+    - https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications
+    - useEffect: https://www.pluralsight.com/guides/using-web-sockets-in-your-reactredux-app
+    - Redux Middleware: https://dev.to/aduranil/how-to-use-websockets-with-redux-a-step-by-step-guide-to-writing-understanding-connecting-socket-middleware-to-your-project-km3
+  - Server-Sent Events
+    - only one direction
+    - patterns for receiving like Web Sockets
+    - https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
+
   
 ### Dependency Management
 

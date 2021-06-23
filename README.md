@@ -182,12 +182,14 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
   * State: re-render
   * Properties
   * Component returns UI
-  * Lifecycle: render and commit phase
   * Declarative
+  * Lifecycle: render and commit phase
   * Classes and functions can be mixed in one app
   * Classes are not deprecated
+    * https://reactjs.org/docs/hooks-faq.html#do-i-need-to-rewrite-all-my-class-components
 * but  
   * new/future React features may only be available for functions
+    * https://reactjs.org/docs/hooks-faq.html#should-i-use-hooks-classes-or-a-mix-of-both 
   * error boundaries only work for classes: https://reactjs.org/docs/error-boundaries.html
   * life-cycle methods in classes hurt cohesion of code and are error prone
   * useEffect can replace all of them in functional components (but also have a weird api)

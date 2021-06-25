@@ -272,9 +272,20 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
 
 ## Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
-
-https://create-react-app.dev/
+* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+* https://create-react-app.dev/
+* https://reactjs.org/docs/create-a-new-react-app.html#create-react-app
+* Create new projects with CRA
+* Leave existing projects as they are and only rethink once you reach a hard boundary
+  - also applies to webpack by hand
+* Do not create a build from scratch unless you have to
+  * you keep spending a lot of time maintaining
+  * mostly still is out of data or you make bad choices
+  * libs often need different builds and do not work well with CRA
+    * rollup might be more desirable here
+    * https://github.com/DJCordhose/frontend-monorepo/tree/main/packages/zeigermann-component-lib
+  * do it to learn a bit more
+    * might want to start with CRA and eject to see what is going on
 
 ### Creation
 - https://github.com/reduxjs/cra-template-redux-typescript
@@ -283,3 +294,23 @@ https://create-react-app.dev/
 
 ### Tooling and Integration
 - https://create-react-app.dev/docs/debugging-tests/
+
+### When CRA starts to become limiting
+
+- You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Alternatives to CRA: https://reactjs.org/docs/create-a-new-react-app.html#more-flexible-toolchains
+
+#### Options
+1. eject and ajust config by hand
+   - this will feel worse and worse over time
+1. build your own react-template or scripts
+   - fork the original template in git and adapt it, then you can still eject, but in case of doubt also merge new features
+   - https://create-react-app.dev/docs/alternatives-to-ejecting
+   - https://create-react-app.dev/docs/custom-templates/
+2. https://www.npmjs.com/package/react-app-rewired
+   - a tool that deeply interferes with the internals is problematic
+   - not even the authors would use it and since CRA 2 it is hardly maintained
+   - https://www.npmjs.com/package/react-app-rewired
+   - https://github.com/arackaf/customize-cra
+4. write a post-install-script for npm that adjusts the webpack config in node_modules/react-scripts
+    - this is only a temporary solution, at the same time open issue and hope for fix

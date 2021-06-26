@@ -109,10 +109,41 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
   - AppShell: https://developers.google.com/web/fundamentals/architecture/app-shell 
 
 ### Micro-Structure within a module
-
-- Smart Components: `Counter.tsx`
-- Dumb Components: `AriaButton.tsx`
-- http://blog.embarc.de/spicker/#9
+- Structure module into features
+  - one folder per feature
+    - https://github.com/DJCordhose/frontend-monorepo/tree/main/packages/counter/src/features
+  - do not separate by technicalities
+  - single slice file containing all logic
+  - https://redux.js.org/style-guide/style-guide#structure-files-as-feature-folders-with-single-file-logic
+- Keep tests together with application code
+  - https://create-react-app.dev/docs/running-tests/#filename-conventions
+- Separate components into smart and dumb
+  - indicate type of component by folder or file name
+  - if you decide against this sort of category at least are aware of the concept
+  - Smart Component 
+    - manages state and logic (might delegate to state management lib)
+    - orchestrates other components
+    - triggers side effects (like loading or saving data)
+    - logic makes them domain specific
+    - https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/counter/src/features/counter/Counter.tsx
+  - Dumb Components
+    - layout
+    - relaying events to smart components 
+    - https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/zeigermann-component-lib/src/AriaButton.tsx
+    - probably reusable
+    - document properties
+  - Reference (German)
+    - http://blog.embarc.de/spicker/#9
+    - https://djcordhose.github.io/spa-workshop/2020_arch.html#/innere-struktur
+- each component should do a minimal task
+  - thus be kept at minimal size
+  - anything larger than 100 lines might be a smell
+- a file can contain more than one component
+  - you can have private components only used in the main component
+    - will show as a component in tooling
+    - can be tested separately
+  - a fragment can also be stored in a local variable
+    - does not show in tooling and can not be tested in isolation
 
 ### Testing
 

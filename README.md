@@ -46,44 +46,13 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
 - https://djcordhose.github.io/spa-workshop/2020_arch.html#/frameworks
 - https://reactjs.org/
 
-### State Management
-
-- https://2020.stateofjs.com/en-US/technologies/datalayer/
-- https://djcordhose.github.io/spa-workshop/2020_arch.html#/innere-struktur
-- https://djcordhose.github.io/spa-workshop/2020_arch.html#/state-management
-- https://nilshartmann.github.io/react-training/2020_1211_react.html#/t-state
-- Redux
-  - https://redux.js.org/
-  - https://redux-toolkit.js.org/
-    - Motivation
-      - "Configuring a Redux store is too complicated"
-      - "I have to add a lot of packages to get Redux to do anything useful"
-      - "Redux requires too much boilerplate code"
-    - https://redux-toolkit.js.org/usage/usage-with-typescript
-    - https://redux.js.org/faq/code-structure#how-should-i-split-my-logic-between-reducers-and-action-creators-where-should-my-business-logic-go
-      - "Find the balance between these two extremes, and you will master Redux."
-    - Effects ngrx-style: https://github.com/davidkpiano/useEffectReducer
-- MobX
-  - https://mobx.js.org/react-integration.html
-  - https://michel.codes/blogs/mobx6
-  - https://nilshartmann.github.io/react-training/2020_1211_react.html#/t-mobx
-- XState
-  - https://github.com/davidkpiano/xstate
-  - https://github.com/davidkpiano/xstate/tree/master/packages/xstate-react
-  - https://codesandbox.io/s/xstate-react-typescript-template-wjdvn?file=/src/index.tsx
-- Comparison based on single/multi and direct/indirect: https://twitter.com/DavidKPiano/status/1353712136372039682
-  - "state management is the wild west and the categories aren't mutually exclusive (and can become each other with abstractions/convention), so it's a rough categorization"
-  
 
 ### Macro-Structure of modules and dependencies
 #### Modular Monolith
 - Development in a monorepo
   - https://lerna.js.org/
   - https://classic.yarnpkg.com/en/docs/workspaces/
-- Code Splitting: 
-  - https://create-react-app.dev/docs/code-splitting
-  - https://reactjs.org/docs/code-splitting.html#route-based-code-splitting
-- Make or buy lib
+- Make or buy lib?
 - CSS or Component lib?
   - don't mix well
 - Build your own lib
@@ -109,7 +78,8 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
   - AppShell: https://developers.google.com/web/fundamentals/architecture/app-shell 
 
 ### Micro-Structure within a module
-- Structure module into features
+
+#### Structure module into features
   - one folder per feature
     - https://github.com/DJCordhose/frontend-monorepo/tree/main/packages/counter/src/features
   - do not separate by technicalities
@@ -117,7 +87,8 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
   - https://redux.js.org/style-guide/style-guide#structure-files-as-feature-folders-with-single-file-logic
 - Keep tests together with application code
   - https://create-react-app.dev/docs/running-tests/#filename-conventions
-- Separate components into smart and dumb
+
+####  Separate components into smart and dumb
   - indicate type of component by folder or file name
   - if you decide against this sort of category at least are aware of the concept
   - Smart Component 
@@ -135,6 +106,8 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
   - Reference (German)
     - http://blog.embarc.de/spicker/#9
     - https://djcordhose.github.io/spa-workshop/2020_arch.html#/innere-struktur
+
+#### Component Size and structure    
 - each component should do a minimal task
   - thus be kept at minimal size
   - anything larger than 100 lines might be a smell
@@ -144,6 +117,90 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
     - can be tested separately
   - a fragment can also be stored in a local variable
     - does not show in tooling and can not be tested in isolation
+
+#### Code Splitting 
+  - https://create-react-app.dev/docs/code-splitting
+  - https://reactjs.org/docs/code-splitting.html#route-based-code-splitting
+
+#### Routing
+
+- https://github.com/ReactTraining/react-router
+- Routing and Redux
+  - Deprecated: https://github.com/reactjs/react-router-redux
+  - "official" answer - don't: https://stackoverflow.com/questions/36722584/how-to-sync-redux-state-and-url-hash-tag-params/36749963#36749963
+
+
+
+### State Management
+
+this is all about flow of control and data
+
+- https://2020.stateofjs.com/en-US/technologies/datalayer/
+- https://djcordhose.github.io/spa-workshop/2020_arch.html#/innere-struktur (German)
+- https://djcordhose.github.io/spa-workshop/2020_arch.html#/state-management (German)
+- https://nilshartmann.github.io/react-training/2020_1211_react.html#/t-state (German)
+
+#### Context
+  - https://reactjs.org/docs/context.html
+    - _Context is designed to share data that can be considered “global” for a tree of React components, such as the current authenticated user, theme, or preferred language._
+  - use sparingly and only with smart components
+    - we lose explicit visibility of the application's dataflow
+    - passing through properties is an explicitly recommended practice
+    - you can also pass complete components: https://reactjs.org/docs/context.html#before-you-use-context
+
+#### Redux
+  - https://redux.js.org/
+    - https://redux.js.org/introduction/getting-started#basic-example
+  - https://redux.js.org/introduction/getting-started#should-you-use-redux
+  - https://redux.js.org/recipes/usage-with-typescript
+  - https://redux.js.org/faq/code-structure#how-should-i-split-my-logic-between-reducers-and-action-creators-where-should-my-business-logic-go
+    - "Find the balance between these two extremes, and you will master Redux."
+  - https://github.com/DJCordhose/frontend-monorepo/tree/main/packages/counter
+  - Effects ngrx-style: https://github.com/davidkpiano/useEffectReducer
+
+#### Redux Toolkit (RTK)
+  - https://redux-toolkit.js.org/
+  - Motivation
+    - "Configuring a Redux store is too complicated"
+    - "I have to add a lot of packages to get Redux to do anything useful"
+    - "Redux requires too much boilerplate code"
+  - https://redux.js.org/introduction/getting-started#redux-toolkit-example  
+  - https://redux-toolkit.js.org/usage/usage-with-typescript
+    - typing can be a beast, maybe reading and using is enough to begin with
+    - needed to understand all kinds of typing if you want to go deeper 
+      - https://www.typescriptlang.org/docs/handbook/2/generics.html
+      - https://www.typescriptlang.org/docs/handbook/utility-types.html
+
+#### MobX
+   - https://mobx.js.org/the-gist-of-mobx.html
+   - https://hackernoon.com/the-fundamental-principles-behind-mobx-7a725f71f3e8
+     - That recurring theme is “predictability”. If a framework runs your code twice, or with a delay, it becomes hard to debug it. Or to reason about it. Even ‘simple’ abstractions like promises are notoriously hard to debug due to their async nature.
+  - https://mobx.js.org/react-integration.html
+  - https://michel.codes/blogs/mobx6
+  - https://nilshartmann.github.io/react-training/2020_1211_react.html#/t-mobx (German)
+  - different types of state and combination of stores: https://mobx.js.org/defining-data-stores.html
+  - https://github.com/DJCordhose/frontend-monorepo/tree/main/packages/cra-ts-mobx
+
+#### What's next?
+- XState
+   - not big, yet, but might be the next big thing
+  - https://github.com/davidkpiano/xstate
+  - https://github.com/davidkpiano/xstate/tree/master/packages/xstate-react
+  - https://codesandbox.io/s/xstate-react-typescript-template-wjdvn?file=/src/index.tsx
+- Comparison based on single/multi and direct/indirect: https://twitter.com/DavidKPiano/status/1353712136372039682
+  - "state management is the wild west and the categories aren't mutually exclusive (and can become each other with abstractions/convention), so it's a rough categorization"
+
+  
+#### MobX vs. Redux
+  - Redux rather functional programming, MobX rather OO
+  - A lot of freedom with MobX...
+  - ...but also a lot of "magic
+  - For large models sometimes difficult to understand what is actually "observed" where and how
+  -  Observer components rather untypical for React (yet)
+  - Developer tooling not as good as Redux
+  - Docs, StackOverflow etc. much less comprehensive than Redux
+  - 👉 Both libraries good choice and can be used
+  - 👉 "No one has been fired for Redux yet".
 
 ### Testing
 
@@ -192,8 +249,14 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
 ### Typing
 
 - https://2020.stateofjs.com/en-US/technologies/javascript-flavors/
+  - Flow most likely is no longer an alternative: https://twitter.com/cpojer/status/1397434763774885891
+- Intro
+  - TS for JS programmers: https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html  
+  - TS for Java and C# programmers: https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-oop.html
+  - Tooling: https://www.typescriptlang.org/docs/handbook/typescript-tooling-in-5-minutes.html
 - https://djcordhose.github.io/spa-workshop/2020_arch.html#/ts
 - https://djcordhose.github.io/spa-workshop/2020_js_ts_intro.html#/ts
+  - https://djcordhose.github.io/typescript-intro/2021_js_ts.html#/should-you
 - https://www.typescriptlang.org/
 - https://www.typescriptlang.org/docs/handbook/react.html
 - https://react-typescript-cheatsheet.netlify.app/
@@ -204,7 +267,20 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
   - Libraries (shared code, also completely internal) can benefit from a lot of typing
   - Application code mainly benefits from typing
     - Often simply making a component TS can bring a huge benefit without adding any type information at all
-- Type vs Interface: https://nilshartmann.github.io/typescript-intro/2021_js_ts.html#type-vs-interface
+- Type vs Interface: 
+  - https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces
+  - https://nilshartmann.github.io/typescript-intro/2021_js_ts.html#type-vs-interface
+  - interfaces at the moment still better in external libs: https://twitter.com/orta/status/1307692799807164417
+  - interfaces can be extended
+  - inteface has a clear position in error messages
+  - type is just an alias
+  - Confusion: Java interface != TS Interface
+- How to type properties in FCs
+  - https://github.com/typescript-cheatsheets/react#function-components
+- CRA with TS
+  - TS with RTK: https://github.com/reduxjs/cra-template-redux-typescript
+  - Just TS: https://create-react-app.dev/docs/adding-typescript/  
+  - make TS as strict as possible: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
 
 ## Less important technical recommendations
 
@@ -257,17 +333,6 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
       - Java Implementation exists, but might be complex: https://github.com/socketio/socket.io-client-java
       - More server side implementations: https://socket.io/docs/v4/#What-Socket-IO-is
     - https://github.com/sockjs/sockjs-client
-
-### Dependency Management
-
-- https://classic.yarnpkg.com/en/
-
-### Routing
-
-- https://github.com/ReactTraining/react-router
-- Routing and Redux
-  - Deprecated: https://github.com/reactjs/react-router-redux
-  - "official" answer - don't: https://stackoverflow.com/questions/36722584/how-to-sync-redux-state-and-url-hash-tag-params/36749963#36749963
 
 ### i18n, l10n
 

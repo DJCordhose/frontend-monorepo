@@ -46,24 +46,72 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
 - https://djcordhose.github.io/spa-workshop/2020_arch.html#/frameworks
 - https://reactjs.org/
 
-
 ### Macro-Structure of modules and dependencies
-#### Modular Monolith
-- Development in a monorepo
-  - https://lerna.js.org/
-  - https://classic.yarnpkg.com/en/docs/workspaces/
+#### Development in a monorepo (multi-package repositories)
+- optimizes the workflow around managing multi-package repositories with git and npm: https://lerna.js.org/
+- optional: problematic with many CRA packages as versions might clash: https://classic.yarnpkg.com/en/docs/workspaces/
+- docker container per package
+  - https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+  - https://www.docker.com/blog/keep-nodejs-rockin-in-docker/
+- compose different packages into one app
+  - https://docs.docker.com/compose/
+  - https://github.com/DJCordhose/frontend-monorepo/blob/main/docker-compose.yml
+  - use env variables to tell dev from test from prod
+    - https://docs.docker.com/compose/environment-variables/
+    - https://docs.docker.com/compose/env-file/
+    - alterantives
+      - config in nginx
+      - server writes config to index.html
+      - js config file resolves differently
+      - etc.
+  - CRA allows for proxing in dev: https://create-react-app.dev/docs/proxying-api-requests-in-development/
+- nginx as reverse proxy
+  - solves auth and security
+    - for browser all parts come from the same server
+    - auth token shared in local storage or cookie
+    - https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/server/src/index.js
+    - https://jwt.io/
+    - can come from auth server
+      - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials
+      - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+      - standard auth server: https://www.keycloak.org/
+	      - https://www.keycloak.org/getting-started/getting-started-docker
+  - separate container for reverse proxy
+    - proxies requests to sup apps
+    - names are given in docker compose
+  - https://hub.docker.com/_/nginx
+  - http://nginx.org/en/docs/beginners_guide.html
+  - https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/
+  - https://www.nginx.com/resources/wiki/start/topics/examples/full/  
+
+#### Build your own lib
 - Make or buy lib?
 - CSS or Component lib?
   - don't mix well
-- Build your own lib
-  - https://classic.yarnpkg.com/en/docs/workspaces/
-  - https://lerna.js.org/
-  - https://blog.harveydelaney.com/creating-your-own-react-component-library/
-  -  modes of maintenance
-    1. corporate: use is mandatory for all, high risk in quality and suitability of lib
-    2. agile: use recommended, usage shows quality and suitability of lib
-  -  ownership?
-  -  What to publish?
+* https://github.com/DJCordhose/frontend-monorepo/tree/main/packages/zeigermann-component-lib
+* Use Webpack for apps, and Rollup for libraries: https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c
+  - https://github.com/rollup/plugins  
+- https://blog.harveydelaney.com/creating-your-own-react-component-library/
+-  modes of maintenance
+  1. corporate: use is mandatory for all, high risk in quality and suitability of lib
+  2. agile: use recommended, usage shows quality and suitability of lib
+-  ownership?
+-  What to publish?
+   - JS
+    - either just the source files
+      - problematic if people just want JS
+    - bundle with mappings
+      - esm preferred    
+      - https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/zeigermann-component-lib/rollup.config.js
+      - properly specify in package.json: https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/zeigermann-component-lib/package.json#L5
+   - Typings
+      - https://medium.com/@martin_hotell/typescript-library-tips-rollup-your-types-995153cc81c7
+      - creates d.ts files for everthing: https://github.com/ezolenko/rollup-plugin-typescript2
+      - standard TS plugin (but sucks with declaration files): https://www.npmjs.com/package/@rollup/plugin-typescript
+   - CSS
+     - standard rollup plugin: https://www.npmjs.com/package/rollup-plugin-postcss
+     - can create nice css.d.ts files: https://github.com/flying-sheep/rollup-plugin-postcss-modules
+     - https://github.com/DJCordhose/frontend-monorepo/blob/main/packages/zeigermann-component-lib/rollup.config.js#L23
 
 #### Micro Frontends
 - https://micro-frontends.org/
@@ -77,8 +125,7 @@ Definition of architecture inspired by: https://martinfowler.com/architecture/
   - WebComponent: https://developer.mozilla.org/en-US/docs/Web/Web_Components
   - AppShell: https://developers.google.com/web/fundamentals/architecture/app-shell 
 
-### Micro-Structure within a module
-
+### Micro-Structure within a module / Modular Monolith
 #### Structure module into features
   - one folder per feature
     - https://github.com/DJCordhose/frontend-monorepo/tree/main/packages/counter/src/features
@@ -379,7 +426,6 @@ this is all about flow of control and data
   * mostly still is out of data or you make bad choices
   * libs often need different builds and do not work well with CRA
     * rollup might be more desirable here
-    * https://github.com/DJCordhose/frontend-monorepo/tree/main/packages/zeigermann-component-lib
   * do it to learn a bit more
     * might want to start with CRA and eject to see what is going on
 

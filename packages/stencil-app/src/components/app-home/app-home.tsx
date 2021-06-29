@@ -17,6 +17,10 @@ export class AppHome {
         <stencil-route-link url="/profile/stencil">
           <button>Profile page</button>
         </stencil-route-link>
+        <stencil-route-link url="/my">
+          <button>My new component</button>
+        </stencil-route-link>
+
       </div>
     );
   }

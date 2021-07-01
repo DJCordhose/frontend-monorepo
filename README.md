@@ -238,7 +238,7 @@ this is all about flow of control and data
   - "state management is the wild west and the categories aren't mutually exclusive (and can become each other with abstractions/convention), so it's a rough categorization"
 
   
-#### MobX vs. Redux
+#### MobX vs. Redux (inspired by Nils Hartmann)
   - Redux rather functional programming, MobX rather OO
   - A lot of freedom with MobX...
   - ...but also a lot of "magic
@@ -246,8 +246,8 @@ this is all about flow of control and data
   -  Observer components rather untypical for React (yet)
   - Developer tooling not as good as Redux
   - Docs, StackOverflow etc. much less comprehensive than Redux
-  - 👉 Both libraries good choice and can be used
-  - 👉 "No one has been fired for Redux yet".
+  - Both libraries good choice and can be used
+  - "No one has been fired for chosing Redux, yet".
 
 ### Testing
 

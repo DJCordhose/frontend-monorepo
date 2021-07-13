@@ -7,6 +7,9 @@ https://2020.stateofjs.com/en-US/technologies/testing/
 * Kent Beck : “I get paid for code that works, not for tests”
   * so my philosophy is to test as little as possible to reach a given level of confidence
   * https://istacee.wordpress.com/2013/09/18/kent-beck-i-get-paid-for-code-that-works-not-for-tests/
+* Adam Rackis: I read "Clean Code" back in my youthful days—was hooked. I'm so sorry for whoever inherited my code from back then
+ * https://twitter.com/AdamRackis/status/1414642471976456193 
+ * https://copyconstruct.medium.com/small-functions-considered-harmful-91035d316c29
 
 ## Testing on the frontend
 

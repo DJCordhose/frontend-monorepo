@@ -10,6 +10,7 @@ https://2020.stateofjs.com/en-US/technologies/testing/
 * Adam Rackis: I read "Clean Code" back in my youthful days—was hooked. I'm so sorry for whoever inherited my code from back then
   * https://twitter.com/AdamRackis/status/1414642471976456193 
   * https://copyconstruct.medium.com/small-functions-considered-harmful-91035d316c29
+* Dan North: You are testing if and only if you are increasing confidence for stakeholders through evidence. (https://dannorth.net/2021/07/26/we-need-to-talk-about-testing/)
 
 ## Testing on the frontend
 
